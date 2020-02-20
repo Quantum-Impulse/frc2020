@@ -5,6 +5,7 @@
 #include "Vision/ColorManager.h"
 #include "Movement/ControllerManager.hpp"
 #include "Movement/DriveTrainManager.hpp"
+#include "AHRS.h"
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
@@ -21,48 +22,93 @@ class Robot : public frc::TimedRobot
  private:
   FRC5572Controller Driver{0}; 
   FRC5572Controller Operator{1};
-  ColorManager      Color; 
 
   AHRS ahrs{SPI::Port::kMXP};
 
-  /* Motors */
-  rev::CANSparkMax m_leftTopMotor{leftLeadDeviceID, 
-    rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightTopMotor{rightLeadDeviceID, 
-    rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_leftBottomMotor{leftFollowDeviceID, 
-    rev::CANSparkMax::MotorType::kBrushless};
-  rev::CANSparkMax m_rightBottomMotor{rightFollowDeviceID, 
+  /* DriveTrain Spark Max and Motors*/
+  rev::CANSparkMax m_leftTopMotor{TopLeft, 
     rev::CANSparkMax::MotorType::kBrushless};
 
-  /* Soleniods */
-  frc::DoubleSolenoid Left_Solenoid{PCM1, Left_Solenoid1, Left_Solenoid2};
-  frc::DoubleSolenoid Right_Solenoid{PCM1, Right_Solenoid1, Right_Solenoid2};
+  rev::CANSparkMax m_rightTopMotor{TopRight, 
+    rev::CANSparkMax::MotorType::kBrushless};
+
+  rev::CANSparkMax m_leftMiddleMotor{MiddleLeft, 
+    rev::CANSparkMax::MotorType::kBrushless};
+
+  rev::CANSparkMax m_rightMiddleMotor{RightMid, 
+    rev::CANSparkMax::MotorType::kBrushless};
+
+  rev::CANSparkMax m_leftBottomMotor{LeftMid, 
+    rev::CANSparkMax::MotorType::kBrushless};
+
+  rev::CANSparkMax m_rightBottomMotor{RightMid, 
+    rev::CANSparkMax::MotorType::kBrushless};
+ 
+ /* Shooters Spark Max and Motors*/
+  rev::CANSparkMax m_leftShooter{leftShoot, 
+    rev::CANSparkMax::MotorType::kBrushless};
+
+  rev::CANSparkMax m_rightShooter{rightShoot, 
+    rev::CANSparkMax::MotorType::kBrushless};
+ 
+ /* Intake */
+  rev::CANSparkMax m_intake{intake, 
+    rev::CANSparkMax::MotorType::kBrushless};
+
+/* Hopper */
+  rev::CANSparkMax m_hopper{hopper, 
+    rev::CANSparkMax::MotorType::kBrushless};
+
+/* Climber */
+  rev::CANSparkMax m_LeftClimb{LeftClimb, 
+    rev::CANSparkMax::MotorType::kBrushed};
+
+  rev::CANSparkMax m_RightClimb{RightClimb, 
+    rev::CANSparkMax::MotorType::kBrushed};
 
   /*instantiation of the compressor with its CAN ID*/ 
   Compressor compressor{0};
 
+  frc::DoubleSolenoid climb{1, 0, 0};
+
+  frc::DoubleSolenoid shooterHood{1, 0, 0}; 
+
   /*DriveTrain Object  */
-  DriveTrain driveTrain{ m_leftTopMotor, m_rightTopMotor, m_leftBottomMotor,  m_rightBottomMotor, Driver, ahrs, Left_Solenoid, Right_Solenoid};
+  DriveTrain driveTrain{ m_leftTopMotor, m_rightTopMotor, m_leftMiddleMotor, m_rightMiddleMotor, m_leftBottomMotor, m_rightBottomMotor, Driver, ahrs};
 
   /* IDS */
-  static const int 
-  leftLeadDeviceID = 1, 
-  leftFollowDeviceID = 2,
-  rightLeadDeviceID = 3,
-  rightFollowDeviceID = 4,
+  static const int
+  //Drive Train IDs 
+  TopLeft = 1,
+  TopRight = 2,
+  
+  MiddleLeft = 3,
+  MiddleRight = 4,
 
-  PCM1 = 5,
-  PCM2 = 6,
+  LeftMid = 5,
+  RightMid = 6,
+  
+  //Shooter Ids
+  leftShoot = 7,
+  rightShoot = 8,
 
-  /* Solenoid port numbers */
-  Right_Solenoid1 = 1,
-  Right_Solenoid2 = 6,
-  Left_Solenoid1 = 0,
-  Left_Solenoid2 = 7;
+  //intake IDs
+  intake = 9,
+  
+  //hopper 
+  hopper = 10,
+  
+  //PCM IDs
+  PCM1 = 11,
+  PCM2 = 12,
+  
+  //Climber IDs
+  LeftClimb = 13,
+  RightClimb = 14;
 
  public:
   void RobotInit() override;
+
   void RobotPeriodic() override;
   void AutonomousInit() override;
   void AutonomousPeriodic() override;

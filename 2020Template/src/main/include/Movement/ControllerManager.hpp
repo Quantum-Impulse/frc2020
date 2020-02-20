@@ -26,7 +26,6 @@
 #define LEFT_STICK_BUTTON 9
 #define RIGHT_STICK_BUTTON 10
 
-
 class FRC5572Controller 
 {
 public:

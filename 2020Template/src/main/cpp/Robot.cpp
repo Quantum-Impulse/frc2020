@@ -12,15 +12,14 @@
 
 #include "cameraserver/CameraServer.h"
 
-void Robot::RobotPeriodic()     
-{ 
-    driveTrain.Drive();
+void Robot::RobotInit(){
     
-    Color.GetClosestColor();
-    Color.OutputColor();
 }
 
-void Robot::RobotInit()          {}
+void Robot::RobotPeriodic(){ 
+    driveTrain.Drive();
+}
+
 void Robot::AutonomousInit()     {}
 void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit()         {}
