@@ -5,6 +5,7 @@
 #include "Vision/ColorManager.h"
 #include "Movement/ControllerManager.hpp"
 #include "Movement/DriveTrainManager.hpp"
+#include "Movement/Shooter.hpp"
 #include "AHRS.h"
 
 #include <frc/TimedRobot.h>
@@ -12,6 +13,7 @@
 #include <frc/Compressor.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/util/color.h>
+#include <frc/DigitalInput.h>
 
 #include "rev/CANSparkMax.h"
 #include <rev/ColorSensorV3.h>
@@ -20,9 +22,12 @@
 class Robot : public frc::TimedRobot
 {
  private:
+ 
+ // Controllers
   FRC5572Controller Driver{0}; 
   FRC5572Controller Operator{1};
 
+  //Nav-XMP board
   AHRS ahrs{SPI::Port::kMXP};
 
   /* DriveTrain Spark Max and Motors*/
@@ -45,14 +50,14 @@ class Robot : public frc::TimedRobot
     rev::CANSparkMax::MotorType::kBrushless};
  
  /* Shooters Spark Max and Motors*/
-  rev::CANSparkMax m_leftShooter{leftShoot, 
+  rev::CANSparkMax m_leftShooter{LeftShoot, 
     rev::CANSparkMax::MotorType::kBrushless};
 
-  rev::CANSparkMax m_rightShooter{rightShoot, 
+  rev::CANSparkMax m_rightShooter{RightShoot, 
     rev::CANSparkMax::MotorType::kBrushless};
  
  /* Intake */
-  rev::CANSparkMax m_intake{intake, 
+  rev::CANSparkMax m_intake{Intake, 
     rev::CANSparkMax::MotorType::kBrushless};
 
 /* Hopper */
@@ -66,19 +71,28 @@ class Robot : public frc::TimedRobot
   rev::CANSparkMax m_RightClimb{RightClimb, 
     rev::CANSparkMax::MotorType::kBrushed};
 
-  /*instantiation of the compressor with its CAN ID*/ 
+  /*instantiation of the compressor with its CAN ID and pneumatics*/ 
   Compressor compressor{0};
 
-  frc::DoubleSolenoid climb{1, 0, 0};
+  frc::DoubleSolenoid climb{PCM1, 0, 0};
 
-  frc::DoubleSolenoid shooterHood{1, 0, 0}; 
+  frc::DoubleSolenoid shooterHood{PCM1, 0, 0};
+
+  frc::DoubleSolenoid intake{PCM1 ,0 ,0};  
+
+  // Sensor
+  frc::DigitalInput limitSwitch1{0};
+  frc::DigitalInput limitSwitch2{1};
 
   /*DriveTrain Object  */
   DriveTrain driveTrain{ m_leftTopMotor, m_rightTopMotor, m_leftMiddleMotor, m_rightMiddleMotor, m_leftBottomMotor, m_rightBottomMotor, Driver, ahrs};
 
+  Shooter shooter{m_leftShooter, m_rightShooter, shooterHood, Operator};
+  
+  
+
   /* IDS */
   static const int
-  //Drive Train IDs 
   TopLeft = 1,
   TopRight = 2,
   
@@ -87,22 +101,16 @@ class Robot : public frc::TimedRobot
 
   LeftMid = 5,
   RightMid = 6,
-  
-  //Shooter Ids
-  leftShoot = 7,
-  rightShoot = 8,
 
-  //intake IDs
-  intake = 9,
+  LeftShoot = 7,
+  RightShoot = 8,
+
+  Intake = 9,
   
-  //hopper 
-  hopper = 10,
+  PCM1 = 10,
+
+  hopper = 11,
   
-  //PCM IDs
-  PCM1 = 11,
-  PCM2 = 12,
-  
-  //Climber IDs
   LeftClimb = 13,
   RightClimb = 14;
 

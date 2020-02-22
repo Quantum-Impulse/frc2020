@@ -1,6 +1,7 @@
 #ifndef SHOOTER_HPP
 #define SHOOTER_HPP
 
+#include <frc/DoubleSolenoid.h>
 #include "rev/CANSparkMax.h"
 #include "AHRS.h"
 #include "Movement/ControllerManager.hpp"
@@ -28,23 +29,27 @@ class Shooter{
     Shooter(
         rev::CANSparkMax &LeftMotor,
         rev::CANSparkMax &RightMotor,
-        FRC5572Controller &Operator,
-        double &Distance,
-        bool &Tracked
+        frc::DoubleSolenoid &Hood,
+        FRC5572Controller &Operator
     );
 
     void Shot();
     void Calucate();
     
-    bool Tracked = false, hood = false;
+    bool Tracked = true, hood = false;
     double Power = 0, Distance = 0;
-
+    /* Notes of power percentage and RPMs to make shot at certain distances*/
+    // Bumber shot = %- RPM - 
+    // Initiation line = %- RPM - 
+    // Trench = %- RPM - 
     frc::SpeedControllerGroup* shooterMotors;
     
     FRC5572Controller* Operator;
 
     rev::CANSparkMax* leftMotor;
     rev::CANSparkMax* rightMotor;
+
+    frc::DoubleSolenoid* Hood;
 };
 
 #endif

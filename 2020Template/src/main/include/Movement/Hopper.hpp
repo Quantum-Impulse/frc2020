@@ -3,35 +3,34 @@
 
 #include "rev/CANSparkMax.h"
 #include "Movement/ControllerManager.hpp"
+#include <frc/DoubleSolenoid.h>
+#include <frc/DigitalInput.h>
 
-/* CAN ID layout for drive train from a top view
-
-          Front of Robot
-         
-         |--------------|
-         |              |
-         |              | 
-         |              | 
-         |              | 
-         |              |
-         |              |
-         |--------------|
-
-          Back Of Robot
-*/
+// AKA magazine and the intake 
 
 class Hopper{
     public:
 
     Hopper(
-        rev::CANSparkMax &Belt);
+        rev::CANSparkMax &Belt,
+        rev::CANSparkMaxLowLevel &Intake,
+        FRC5572Controller &Operator,
+        frc::DoubleSolenoid &IntakePistions
+    );
     void Advance();
+
     void CheckAdvance();
     void ManualControl();
+    void RunIntake();
     
     private:
     FRC5572Controller* Operator;
-    rev::CANSparkMax* Belt;
+    rev::CANSparkMax* belt;
+    rev::CANSparkMaxLowLevel* intake;
+    frc::DoubleSolenoid* intakePistions;
+    frc::DigitalInput* limitSwitch1;
+    frc::DigitalInput* limitSwitch2;
+
 };
 
 #endif

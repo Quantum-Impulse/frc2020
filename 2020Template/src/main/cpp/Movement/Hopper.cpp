@@ -1,23 +1,12 @@
 #include "Movement/Hopper.hpp"
+// AKA magazine and the intake 
 
-
-/* CAN ID layout for drive train from a top view
-
-          Front of Robot
-         
-         |--------------|
-         |              |
-      ?  |    M?   M?   | ?
-         |              | 
-         |              | 
-         |              |
-         |              |
-         |--------------|
-
-          Back Of Robot
-*/
-
-Hopper::Hopper(rev::CANSparkMax &Belt){
+Hopper::Hopper(
+   rev::CANSparkMax &Belt,
+   rev::CANSparkMaxLowLevel &Intake,
+   FRC5572Controller &Operator,
+   frc::DoubleSolenoid &IntakePistions
+){
     
 }
 
@@ -30,5 +19,9 @@ void Hopper::CheckAdvance(){
 }
 
 void Hopper::ManualControl(){
+   
+}
+
+void Hopper::RunIntake(){
 
 }

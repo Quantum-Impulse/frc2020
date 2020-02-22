@@ -20,14 +20,17 @@
 Shooter::Shooter(
     rev::CANSparkMax &LeftMotor,
     rev::CANSparkMax &RightMotor,
-    FRC5572Controller &Operator,
-    double &Distance,
-    bool &Tracked){
-
-    shooterMotors = new frc::SpeedControllerGroup{ LeftMotor, RightMotor};
+    frc::DoubleSolenoid &Hood,
+    FRC5572Controller &Operator
+    ){
+    this->leftMotor = &LeftMotor;
+    this->rightMotor = &RightMotor;
+    this->Hood = &Hood;
     this->Operator = &Operator;
-    this->Distance = Distance;
-    this->Tracked = Tracked;
+    //this->leftMotor->SetInverted(true);
+    //this->rightMotor->SetInverted(true);
+    shooterMotors = new frc::SpeedControllerGroup{ LeftMotor, RightMotor};
+
 }
 
 void Shooter::Shot(){

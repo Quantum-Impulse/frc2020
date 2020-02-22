@@ -49,7 +49,10 @@ DriveTrain::DriveTrain(
 
 DriveTrain::~DriveTrain()
 {
-    delete LeftMotors, RightMotors, Driver, ahrs ;
+    delete LeftMotors;
+    delete RightMotors;
+    delete Driver;
+    delete ahrs;
 }
 
 void DriveTrain::Drive()
