@@ -35,6 +35,7 @@ class Shooter{
 
     void Shot();
     void Calucate();
+    void TestRPM();
     
     bool Tracked = true, hood = false;
     double Power = 0, Distance = 0;
@@ -42,6 +43,7 @@ class Shooter{
     // Bumber shot = %- RPM - 
     // Initiation line = %- RPM - 
     // Trench = %- RPM - 
+    // Color Wheel = %- RMP - 
     frc::SpeedControllerGroup* shooterMotors;
     
     FRC5572Controller* Operator;

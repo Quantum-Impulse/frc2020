@@ -1,5 +1,5 @@
-#ifndef HOPPER_HPP
-#define HOPPER_HPP
+#ifndef PHOTOELCTRIC_HPP
+#define PHOTOELCTRIC_HPP
 
 #include <frc/DigitalOutput.h>
 #include <frc/DigitalInput.h>

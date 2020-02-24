@@ -15,6 +15,7 @@ class ClimbManager {
     frc::DoubleSolenoid& climbPistons
   );
 
+  void ClimbPeriodic();
   void Up();
   void Down();
   void Spin();

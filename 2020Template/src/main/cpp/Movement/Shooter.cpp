@@ -34,9 +34,16 @@ Shooter::Shooter(
 }
 
 void Shooter::Shot(){
+    if(Operator->Y()){
+        Hood->Set(frc::DoubleSolenoid::Value::kReverse); //do toggle
+    }
+    else{
+      Hood->Set(frc::DoubleSolenoid::Value::kForward);  
+    }
+
     if(Tracked)
     {
-        shooterMotors->Set(Power);
+        shooterMotors->Set(Operator->RT());
     }
     else
     {
@@ -46,4 +53,8 @@ void Shooter::Shot(){
 
 void Shooter::Calucate(){
     
+}
+
+void Shooter::TestRPM(){
+
 }

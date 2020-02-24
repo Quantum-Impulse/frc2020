@@ -6,7 +6,9 @@
 #include "Movement/ControllerManager.hpp"
 #include "Movement/DriveTrainManager.hpp"
 #include "Movement/Shooter.hpp"
-#include "AHRS.h"
+#include "Movement/Hopper.hpp"
+#include "Movement/ClimbManager.hpp"
+#include "vision/PhotoeletricSensor.hpp"
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
@@ -15,6 +17,7 @@
 #include <frc/util/color.h>
 #include <frc/DigitalInput.h>
 
+#include "AHRS.h"
 #include "rev/CANSparkMax.h"
 #include <rev/ColorSensorV3.h>
 #include <rev/ColorMatch.h>
@@ -61,7 +64,7 @@ class Robot : public frc::TimedRobot
     rev::CANSparkMax::MotorType::kBrushless};
 
 /* Hopper */
-  rev::CANSparkMax m_hopper{hopper, 
+  rev::CANSparkMax m_hopper{HopperID, 
     rev::CANSparkMax::MotorType::kBrushless};
 
 /* Climber */
@@ -72,44 +75,51 @@ class Robot : public frc::TimedRobot
     rev::CANSparkMax::MotorType::kBrushed};
 
   /*instantiation of the compressor with its CAN ID and pneumatics*/ 
-  Compressor compressor{0};
+  Compressor compressor{PCM1};
 
-  frc::DoubleSolenoid climb{PCM1, 0, 0};
+  frc::DoubleSolenoid climb{PCM1, 1, 6}; // 3 4
 
-  frc::DoubleSolenoid shooterHood{PCM1, 0, 0};
+  frc::DoubleSolenoid shooterHood{PCM1, 2, 5}; 
 
-  frc::DoubleSolenoid intake{PCM1 ,0 ,0};  
+  frc::DoubleSolenoid intake{PCM1 ,3 ,4};  //1 6
 
   // Sensor
-  frc::DigitalInput limitSwitch1{0};
-  frc::DigitalInput limitSwitch2{1};
+  frc::DigitalInput limitSwitch1{3};
+  frc::DigitalInput limitSwitch2{2};
 
-  /*DriveTrain Object  */
+  frc::DigitalInput photoIN{0};
+  frc::DigitalOutput photoOUT{1};
+
+  /*SubSystem Objects  */
   DriveTrain driveTrain{ m_leftTopMotor, m_rightTopMotor, m_leftMiddleMotor, m_rightMiddleMotor, m_leftBottomMotor, m_rightBottomMotor, Driver, ahrs};
 
   Shooter shooter{m_leftShooter, m_rightShooter, shooterHood, Operator};
   
+  ClimbManager climber{m_LeftClimb, m_RightClimb, Driver, climb};
+
+  Hopper hopper{m_hopper, m_intake, Operator, intake, limitSwitch1, limitSwitch2, photoIN};  
   
+  Photoelctric photoSensor{photoIN, photoOUT};
 
   /* IDS */
   static const int
-  TopLeft = 1,
-  TopRight = 2,
+  TopLeft = 1, // GOOD
+  TopRight = 2, // GOOD
   
-  MiddleLeft = 3,
-  MiddleRight = 4,
+  MiddleLeft = 3, // GOOD
+  MiddleRight = 4, // GOOD
 
-  LeftMid = 5,
-  RightMid = 6,
+  LeftMid = 5, // GOOD
+  RightMid = 6, // GOOD
 
-  LeftShoot = 7,
-  RightShoot = 8,
+  LeftShoot = 7, // GOOD
+  RightShoot = 8, // GOOD
 
-  Intake = 9,
+  Intake = 9, // GOOD
   
-  PCM1 = 10,
+  PCM1 = 10, // GOOD
 
-  hopper = 11,
+  HopperID = 11,
   
   LeftClimb = 13,
   RightClimb = 14;
@@ -122,6 +132,7 @@ class Robot : public frc::TimedRobot
   void AutonomousPeriodic() override;
   void TeleopInit() override;
   void TeleopPeriodic() override;
+  void TestInit() override;
   void TestPeriodic() override;
 };
 
