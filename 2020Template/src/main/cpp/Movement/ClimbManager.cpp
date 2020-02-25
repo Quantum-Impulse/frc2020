@@ -13,7 +13,7 @@ ClimbManager::ClimbManager(
     this->climbPistons = &ClimbPistons;
     this->climbMotors = new frc::SpeedControllerGroup(LeftClimb, RightClimb);
     //this->leftClimb->SetInverted(true);
-    //this->rightClimb->SetInverted(true);
+    this->rightClimb->SetInverted(true);
 
 }
 
@@ -25,7 +25,7 @@ void ClimbManager::ClimbPeriodic(){
 
 void ClimbManager::Up(){
     if(driver->LT() > 0){
-        this->climbPistons->Set(frc::DoubleSolenoid::Value::kOff); 
+        this->climbPistons->Set(frc::DoubleSolenoid::Value::kForward); 
     }
     else{
         this->climbMotors->Set(frc::DoubleSolenoid::Value::kOff); // toogle
@@ -35,7 +35,7 @@ void ClimbManager::Up(){
 
 void ClimbManager::Down(){
     if(driver->RT() > 0){
-        this->climbPistons->Set(frc::DoubleSolenoid::Value::kOff); // combine down and spin
+        this->climbPistons->Set(frc::DoubleSolenoid::Value::kReverse); // combine down and spin
     }
     else{
         this->climbMotors->Set(frc::DoubleSolenoid::Value::kOff);
@@ -43,10 +43,12 @@ void ClimbManager::Down(){
 }
 
 void ClimbManager::Spin(){
-    if(driver->RT() > 0){
+    if(driver->B()){
+        //this->leftClimb->Set(-0.3);
         this->climbMotors->Set(-0.3);
     }
     else{
+        //this->leftClimb->Set(0);
         this->climbMotors->Set(0.0);
     }
 }

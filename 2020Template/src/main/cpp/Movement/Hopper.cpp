@@ -1,5 +1,6 @@
 #include "Movement/Hopper.hpp"
-// AKA magazine and the intake 
+// AKA magazine and the intake
+//d pad toggle preset shots 
 
 Hopper::Hopper(
    rev::CANSparkMax &Belt,
@@ -21,8 +22,9 @@ Hopper::Hopper(
 
 void Hopper::HopperPeriodic(){
    Hopper::ManualControl();
-   Hopper::RunIntake();
+   Hopper::RunIntakePistions();
    Hopper::Advance();
+   Hopper::ManualIntakeMotors();
 }
 
 void Hopper::Advance(){
@@ -44,21 +46,39 @@ void Hopper::Advance(){
 }
 
 void Hopper::ManualControl(){
-   if(this->Operator->RB()){
-      this->belt->Set(.3);
+   if(this->Operator->R().second > 0.2){
+      this->belt->Set(-0.5);
+   }
+   if(this->Operator->R().second < -0.2){
+      this->belt->Set(0.5);
+   }
+   if(this->Operator->R().second < 0.2 && this->Operator->R().second > -0.2) {
+      this->belt->Set(0.0);
+   }
+
+}
+
+void Hopper::RunIntakePistions(){
+   if(Operator->Y()){
+      //intake->Set(.7);
+      intakePistions->Set(frc::DoubleSolenoid::Value::kForward); // do toggle
    }
    else{
-      this->belt->Set(0.0);
+      //intake->Set(0.0);
+      intakePistions->Set(frc::DoubleSolenoid::Value::kReverse);
    }
 }
 
-void Hopper::RunIntake(){
-   if(Operator->X()){
-      intake->Set(.9);
-      intakePistions->Set(frc::DoubleSolenoid::Value::kReverse); // do toggle
+void Hopper::ManualIntakeMotors(){
+   if(this->Operator->L().second > 0.2){
+      this->intake->Set(-.7);
    }
-   else{
-      intake->Set(0.0);
-      intakePistions->Set(frc::DoubleSolenoid::Value::kForward);
+
+   if(this->Operator->L().second < -0.2){
+      this->intake->Set(.7);
+   }
+   
+   if(this->Operator->L().second < 0.2 && this->Operator->L().second > -0.2) {
+      this->intake->Set(0.0);
    }
 }

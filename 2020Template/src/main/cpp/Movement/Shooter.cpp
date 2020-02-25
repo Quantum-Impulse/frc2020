@@ -34,11 +34,11 @@ Shooter::Shooter(
 }
 
 void Shooter::Shot(){
-    if(Operator->Y()){
-        Hood->Set(frc::DoubleSolenoid::Value::kReverse); //do toggle
+    if(Operator->B()){
+        Hood->Set(frc::DoubleSolenoid::Value::kForward); //do toggle
     }
     else{
-      Hood->Set(frc::DoubleSolenoid::Value::kForward);  
+      Hood->Set(frc::DoubleSolenoid::Value::kReverse);  
     }
 
     if(Tracked)
@@ -57,4 +57,8 @@ void Shooter::Calucate(){
 
 void Shooter::TestRPM(){
 
+}
+
+void Shooter::BumberShot(){
+    
 }

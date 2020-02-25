@@ -1,6 +1,7 @@
 #ifndef DRIVE_TRAIN_HPP
 #define DRIVE_TRAIN_HPP
 
+#include "Vision/VisionManager.hpp"
 #include "Movement/ControllerManager.hpp"
 #include <frc/SpeedControllerGroup.h>
 #include "rev/CANSparkMax.h"
@@ -36,7 +37,8 @@ DriveTrain(
   rev::CANSparkMax &BottomLeftMotor  , 
   rev::CANSparkMax &BottomRightMotor ,
   FRC5572Controller &Driver          ,
-  AHRS &ahrs
+  VisionManager &VisionManager      ,
+  AHRS &ahrs                         
   );
 
 ~DriveTrain();
@@ -45,6 +47,10 @@ void LowerAmps();
 void Aim();
 
 private:
+  VisionManager* LimeLight;
+
+  double disX;
+
   frc::SpeedControllerGroup* LeftMotors;
   frc::SpeedControllerGroup* RightMotors;
   

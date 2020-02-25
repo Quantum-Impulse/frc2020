@@ -19,3 +19,7 @@ VisionManager::VisionManager(){
     disY = ty;
   }
 }
+
+void TurnOffLights(){
+  
+}

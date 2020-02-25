@@ -27,6 +27,7 @@ DriveTrain::DriveTrain(
     rev::CANSparkMax &BottomRightMotor,
 
     FRC5572Controller &Driver,
+    VisionManager &VisionManager,
     AHRS &ahrs
     ){
         this->LeftMotors = new frc::SpeedControllerGroup( TopLeftMotor, MiddleLeft, BottomLeftMotor);
@@ -44,7 +45,11 @@ DriveTrain::DriveTrain(
         this->BottomLeftMotor = &BottomLeftMotor;
         this->BottomRightMotor = &BottomRightMotor;
 
-        this->TopleftMotor->SetInverted(true);
+        //this->LeftMotors->SetInverted(true);
+
+        //this->TopleftMotor->SetInverted(true);
+
+        this->LimeLight = &VisionManager;
 }
 
 DriveTrain::~DriveTrain()
@@ -57,8 +62,9 @@ DriveTrain::~DriveTrain()
 
 void DriveTrain::Drive()
 {
-    LeftMotors->Set(Driver->L().second);
-    RightMotors->Set(Driver->R().second);
+    LeftMotors->Set(-1 * Driver->L().second );
+    RightMotors->Set(Driver->R().second );
+    DriveTrain::Aim();
 }
 
 void DriveTrain::LowerAmps(){
@@ -69,5 +75,23 @@ void DriveTrain::LowerAmps(){
 }
 
 void DriveTrain::Aim(){
-    
+    disX = LimeLight->disX;
+    if (Driver->A())
+    {
+    if (fabs(disX) > 0)
+    {
+        if (fabs(disX) > 10)
+        {
+            copysign(1, disX) == 1 ? RightMotors->Set(.3) : LeftMotors->Set(.3);
+        }
+        if (fabs(disX) < 10)
+        {
+            copysign(1, disX) == 1 ? RightMotors->Set(disX/30) : LeftMotors->Set(disX/30);
+        }
+    }
+    else if (Driver->A() == false)
+    {
+        RightMotors->Set(0); LeftMotors->Set(0);
+    }
+    }
 }

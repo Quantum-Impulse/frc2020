@@ -30,6 +30,10 @@ class FRC5572Controller
 {
 public:
   bool toggleA = false, togglePressedA = false;
+  bool toggleB = false, togglePressedB = false;
+  bool toggleX = false, togglePressedX = false;
+  bool toggleY = false, togglePressedY = false;
+  
   void UpdateToggleA();
   FRC5572Controller(int I);
   ~FRC5572Controller();

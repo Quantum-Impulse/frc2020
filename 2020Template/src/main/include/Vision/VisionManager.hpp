@@ -17,5 +17,6 @@ class VisionManager
 
     bool targetFound = false;
     VisionManager();
+    void TurnOffLights();
 };
 #endif

@@ -24,7 +24,8 @@ class Hopper{
     void HopperPeriodic();
     void Advance();
     void ManualControl();
-    void RunIntake();
+    void RunIntakePistions();
+    void ManualIntakeMotors();
 
     
     private:

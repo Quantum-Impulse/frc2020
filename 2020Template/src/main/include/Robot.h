@@ -3,6 +3,7 @@
 #include <string>
 
 #include "Vision/ColorManager.h"
+#include "Vision/VisionManager.hpp"
 #include "Movement/ControllerManager.hpp"
 #include "Movement/DriveTrainManager.hpp"
 #include "Movement/Shooter.hpp"
@@ -25,6 +26,7 @@
 class Robot : public frc::TimedRobot
 {
  private:
+ VisionManager LimeLight;
  
  // Controllers
   FRC5572Controller Driver{0}; 
@@ -91,7 +93,7 @@ class Robot : public frc::TimedRobot
   frc::DigitalOutput photoOUT{1};
 
   /*SubSystem Objects  */
-  DriveTrain driveTrain{ m_leftTopMotor, m_rightTopMotor, m_leftMiddleMotor, m_rightMiddleMotor, m_leftBottomMotor, m_rightBottomMotor, Driver, ahrs};
+  DriveTrain driveTrain{ m_leftTopMotor, m_rightTopMotor, m_leftMiddleMotor, m_rightMiddleMotor, m_leftBottomMotor, m_rightBottomMotor, Driver, LimeLight, ahrs};
 
   Shooter shooter{m_leftShooter, m_rightShooter, shooterHood, Operator};
   
@@ -119,10 +121,10 @@ class Robot : public frc::TimedRobot
   
   PCM1 = 10, // GOOD
 
-  HopperID = 11,
+  HopperID = 11, //GOOD
   
-  LeftClimb = 13,
-  RightClimb = 14;
+  LeftClimb = 13, //GOOD
+  RightClimb = 14; //GOOD
 
  public:
   void RobotInit() override;
