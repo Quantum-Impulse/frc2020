@@ -1,6 +1,8 @@
 #ifndef DRIVE_TRAIN_HPP
 #define DRIVE_TRAIN_HPP
 
+#include <iostream>
+#include <ctre/Phoenix.h>
 #include "Vision/VisionManager.hpp"
 #include "Movement/ControllerManager.hpp"
 #include <frc/SpeedControllerGroup.h>

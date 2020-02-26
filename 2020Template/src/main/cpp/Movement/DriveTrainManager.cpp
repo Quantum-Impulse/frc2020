@@ -62,9 +62,9 @@ DriveTrain::~DriveTrain()
 
 void DriveTrain::Drive()
 {
+    //DriveTrain::Aim();
     LeftMotors->Set(-1 * Driver->L().second );
     RightMotors->Set(Driver->R().second );
-    DriveTrain::Aim();
 }
 
 void DriveTrain::LowerAmps(){
@@ -75,7 +75,9 @@ void DriveTrain::LowerAmps(){
 }
 
 void DriveTrain::Aim(){
-    disX = LimeLight->disX;
+    std::cout << "asd" << std::endl; 
+    disX = LimeLight->disX; 
+    std::cout << "disX is: " << disX << std::endl; 
     if (Driver->A())
     {
     if (fabs(disX) > 0)

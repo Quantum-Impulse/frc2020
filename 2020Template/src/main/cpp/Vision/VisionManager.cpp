@@ -1,7 +1,10 @@
 #include "Vision/VisionManager.hpp"
 
 VisionManager::VisionManager(){
-  std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+  Update();
+}
+
+void VisionManager::Update(){
   tx = table->GetNumber("tx",0.0);
   ty = table->GetNumber("ty",0.0);
   ta = table->GetNumber("ta",0.0);

@@ -60,5 +60,12 @@ void Shooter::TestRPM(){
 }
 
 void Shooter::BumberShot(){
-    
+    /*
+    if(Operator->BLaBla){
+        shooterMotors->Set(1.0);
+    }
+    */
 }
+/*
+void Shooter::InitShot
+*/

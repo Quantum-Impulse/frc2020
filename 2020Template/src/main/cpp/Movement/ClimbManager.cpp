@@ -2,8 +2,8 @@
 
 #include <frc/DoubleSolenoid.h>
 ClimbManager::ClimbManager(
-    rev::CANSparkMax& LeftClimb,
-    rev::CANSparkMax& RightClimb,
+    frc::VictorSP& LeftClimb,
+    frc::VictorSP& RightClimb,
     FRC5572Controller& Driver,
     frc::DoubleSolenoid& ClimbPistons
 ){
@@ -13,7 +13,7 @@ ClimbManager::ClimbManager(
     this->climbPistons = &ClimbPistons;
     this->climbMotors = new frc::SpeedControllerGroup(LeftClimb, RightClimb);
     //this->leftClimb->SetInverted(true);
-    this->rightClimb->SetInverted(true);
+    //this->rightClimb->SetInverted(false);
 
 }
 
@@ -25,7 +25,7 @@ void ClimbManager::ClimbPeriodic(){
 
 void ClimbManager::Up(){
     if(driver->LT() > 0){
-        this->climbPistons->Set(frc::DoubleSolenoid::Value::kForward); 
+        this->climbPistons->Set(frc::DoubleSolenoid::Value::kReverse); 
     }
     else{
         this->climbMotors->Set(frc::DoubleSolenoid::Value::kOff); // toogle
@@ -34,8 +34,8 @@ void ClimbManager::Up(){
 }
 
 void ClimbManager::Down(){
-    if(driver->RT() > 0){
-        this->climbPistons->Set(frc::DoubleSolenoid::Value::kReverse); // combine down and spin
+    if(driver->RT() > 0){ 
+        this->climbPistons->Set(frc::DoubleSolenoid::Value::kForward); // combine down and spin
     }
     else{
         this->climbMotors->Set(frc::DoubleSolenoid::Value::kOff);
@@ -43,12 +43,25 @@ void ClimbManager::Down(){
 }
 
 void ClimbManager::Spin(){
+
     if(driver->B()){
         //this->leftClimb->Set(-0.3);
-        this->climbMotors->Set(-0.3);
+        //this->climbMotors->Set(-0.3);
+        leftClimb->Set(.2);
+        rightClimb->Set(.2);
     }
     else{
         //this->leftClimb->Set(0);
-        this->climbMotors->Set(0.0);
+        //this->climbMotors->Set(0.0); / problem 
+        leftClimb->Set(0);
+        rightClimb->Set(0);
+    }
+    if(driver->LB()){
+        leftClimb->Set(-0.2);
+        rightClimb->Set(-0.2);
+    }
+    else{
+        leftClimb->Set(0.0);
+        rightClimb->Set(0.0);
     }
 }

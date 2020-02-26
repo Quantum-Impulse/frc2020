@@ -5,12 +5,13 @@
 #include "rev/CANSparkMax.h"
 #include <frc/SpeedControllerGroup.h>
 #include "Movement/ControllerManager.hpp"
+#include <frc/VictorSP.h>
 
 class ClimbManager {
  public:
   ClimbManager(
-    rev::CANSparkMax& leftClimb,
-    rev::CANSparkMax& rightClimb,
+    frc::VictorSP& LeftClimb,
+    frc::VictorSP& RightClimb,
     FRC5572Controller& Driver,
     frc::DoubleSolenoid& climbPistons
   );
@@ -24,8 +25,8 @@ class ClimbManager {
 
   FRC5572Controller* driver;
 
-  rev::CANSparkMax* leftClimb;
-  rev::CANSparkMax* rightClimb;
+  frc::VictorSP* leftClimb;
+  frc::VictorSP* rightClimb;
 
   frc::DoubleSolenoid* climbPistons;
 

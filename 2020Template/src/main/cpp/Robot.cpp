@@ -13,10 +13,12 @@
 #include "cameraserver/CameraServer.h"
 
 void Robot::RobotInit(){
-    
+
 }
 
 void Robot::RobotPeriodic(){ 
+    LimeLight.Update();
+
     driveTrain.Drive();
 
     shooter.Shot();
@@ -24,7 +26,6 @@ void Robot::RobotPeriodic(){
     climber.ClimbPeriodic();
 
     hopper.HopperPeriodic();
-
 }
 
 void Robot::AutonomousInit()     {

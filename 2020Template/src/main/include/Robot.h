@@ -22,6 +22,7 @@
 #include "rev/CANSparkMax.h"
 #include <rev/ColorSensorV3.h>
 #include <rev/ColorMatch.h>
+#include <frc/VictorSP.h>
 
 class Robot : public frc::TimedRobot
 {
@@ -70,11 +71,16 @@ class Robot : public frc::TimedRobot
     rev::CANSparkMax::MotorType::kBrushless};
 
 /* Climber */
-  rev::CANSparkMax m_LeftClimb{LeftClimb, 
-    rev::CANSparkMax::MotorType::kBrushed};
+  // rev::CANSparkMax m_LeftClimb{LeftClimb, 
+  //   rev::CANSparkMax::MotorType::kBrushed};
 
-  rev::CANSparkMax m_RightClimb{RightClimb, 
-    rev::CANSparkMax::MotorType::kBrushed};
+  // rev::CANSparkMax m_RightClimb{RightClimb, 
+  //   rev::CANSparkMax::MotorType::kBrushed};
+
+  
+  frc::VictorSP test1 {0}; // left climb motor
+
+  frc::VictorSP test2 {1}; // right climb motor
 
   /*instantiation of the compressor with its CAN ID and pneumatics*/ 
   Compressor compressor{PCM1};
@@ -97,7 +103,7 @@ class Robot : public frc::TimedRobot
 
   Shooter shooter{m_leftShooter, m_rightShooter, shooterHood, Operator};
   
-  ClimbManager climber{m_LeftClimb, m_RightClimb, Driver, climb};
+  ClimbManager climber{test1, test2, Driver, climb};
 
   Hopper hopper{m_hopper, m_intake, Operator, intake, limitSwitch1, limitSwitch2, photoIN};  
   

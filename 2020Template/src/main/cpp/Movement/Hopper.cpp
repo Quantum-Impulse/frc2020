@@ -36,6 +36,17 @@ void Hopper::Advance(){
          belt->Set(0.0);
          }
    }
+   /*
+   if =(Operator->A()){
+      if(!(Photo->Get())&&((limitSwitch1->Get())||(limitSwitch2->Get())){
+         belt->Set(0.3);
+      }
+      if((Photo->Get())){
+         belt->Set(0.0);
+      }
+   }
+
+   */
 
    if(limitSwitch1->Get()){
       readyToLoad = true;

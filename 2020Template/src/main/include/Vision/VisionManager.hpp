@@ -16,7 +16,9 @@ class VisionManager
     , tv = 0;
 
     bool targetFound = false;
+    void Update();
     VisionManager();
     void TurnOffLights();
+    std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 };
 #endif
