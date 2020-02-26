@@ -30,6 +30,8 @@ Shooter::Shooter(
     //this->leftMotor->SetInverted(true);
     //this->rightMotor->SetInverted(true);
     shooterMotors = new frc::SpeedControllerGroup{ LeftMotor, RightMotor};
+    this->leftMotorEncoder = new rev::CANEncoder{LeftMotor};
+    this->rightMotorEncoder = new rev::CANEncoder{RightMotor};
 
 }
 
@@ -56,7 +58,7 @@ void Shooter::Calucate(){
 }
 
 void Shooter::TestRPM(){
-
+    leftMotorEncoder->SetPosition(0);
 }
 
 void Shooter::BumberShot(){

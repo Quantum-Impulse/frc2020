@@ -58,6 +58,9 @@ class Shooter{
     rev::CANSparkMax* rightMotor;
 
     frc::DoubleSolenoid* Hood;
+
+    rev::CANEncoder* leftMotorEncoder    ;
+    rev::CANEncoder* rightMotorEncoder   ;
 };
 
 #endif
