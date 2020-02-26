@@ -11,54 +11,47 @@ ClimbManager::ClimbManager(
     this->rightClimb = &RightClimb;
     this->driver = &Driver;
     this->climbPistons = &ClimbPistons;
-    this->climbMotors = new frc::SpeedControllerGroup(LeftClimb, RightClimb);
+    //this->climbMotors = new frc::SpeedControllerGroup(LeftClimb, RightClimb);
     //this->leftClimb->SetInverted(true);
     //this->rightClimb->SetInverted(false);
 
 }
 
 void ClimbManager::ClimbPeriodic(){
-    ClimbManager::Down();
     ClimbManager::Spin();
-    ClimbManager::Up();
+    ClimbManager::UpAndDown();
 }
 
-void ClimbManager::Up(){
+void ClimbManager::UpAndDown(){
     if(driver->LT() > 0){
         this->climbPistons->Set(frc::DoubleSolenoid::Value::kReverse); 
     }
+    else if(driver->RT() > 0){
+       this->climbPistons->Set(frc::DoubleSolenoid::Value::kForward);
+    }
     else{
-        this->climbMotors->Set(frc::DoubleSolenoid::Value::kOff); // toogle
+        this->climbPistons->Set(frc::DoubleSolenoid::Value::kOff);
     }
     
 }
 
 void ClimbManager::Down(){
-    if(driver->RT() > 0){ 
-        this->climbPistons->Set(frc::DoubleSolenoid::Value::kForward); // combine down and spin
-    }
-    else{
-        this->climbMotors->Set(frc::DoubleSolenoid::Value::kOff);
-    }
+    
 }
 
 void ClimbManager::Spin(){
 
-    if(driver->B()){
+    if(driver->RB()){
         //this->leftClimb->Set(-0.3);
         //this->climbMotors->Set(-0.3);
-        leftClimb->Set(.2);
-        rightClimb->Set(.2);
+        leftClimb->Set(.4);
+        rightClimb->Set(.4);
     }
-    else{
+    else if(driver->LB()){
         //this->leftClimb->Set(0);
         //this->climbMotors->Set(0.0); / problem 
-        leftClimb->Set(0);
-        rightClimb->Set(0);
-    }
-    if(driver->LB()){
-        leftClimb->Set(-0.2);
-        rightClimb->Set(-0.2);
+        leftClimb->Set(-0.4);
+        rightClimb->Set(-0.4);
     }
     else{
         leftClimb->Set(0.0);

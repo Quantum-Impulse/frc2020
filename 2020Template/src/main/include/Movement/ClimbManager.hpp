@@ -17,7 +17,7 @@ class ClimbManager {
   );
 
   void ClimbPeriodic();
-  void Up();
+  void UpAndDown();
   void Down();
   void Spin();
   private:

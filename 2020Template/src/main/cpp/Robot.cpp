@@ -16,9 +16,9 @@
 
 void Robot::RobotInit(){
 
-    m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-    m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-    frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+    // m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
+    // m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
+    // frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 }
 
 void Robot::RobotPeriodic(){ 
@@ -40,11 +40,11 @@ void Robot::AutonomousInit()     {
 
 void Robot::AutonomousPeriodic() {
 
-    double time = Timer::getFPGATimestamp();
-    cout << time - startTime << endl;
-    if (time - startTime < 3) {
+    // double time = Timer::getFPGATimestamp();
+    // cout << time - startTime << endl;
+    // if (time - startTime < 3) {
         
-    }
+    // }
 }
 
 void Robot::TeleopInit()         {
@@ -56,11 +56,12 @@ void Robot::TeleopPeriodic()     {
 }
 
 void Robot::TestInit()  {
-
+    
 }
 
 void Robot::TestPeriodic()       {
     photoSensor.teachSensor();
+    std::cout << "Value of photo:" << photoIN.Get() << std::endl;
 }
 
 #ifndef RUNNING_FRC_TESTS

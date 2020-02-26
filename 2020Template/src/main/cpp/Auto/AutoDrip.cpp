@@ -16,6 +16,11 @@ AutoDrip::AutoDrip(
 
 void AutoDrip::BumperShot(){
     startTime = Timer::GetFPGATimestamp();
+    double nowTime = time - startTime;
+    std::cout << nowTime << std::endl;
+    if (nowTime < 3) {
+        
+    }
 }
 
 void AutoDrip::InitiationShot(){
