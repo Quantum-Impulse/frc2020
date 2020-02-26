@@ -48,7 +48,6 @@ void Drive();
 void LowerAmps();
 void Aim();
 
-private:
   VisionManager* LimeLight;
 
   double disX;
@@ -58,7 +57,7 @@ private:
   
   FRC5572Controller* Driver;
 
-  rev::CANSparkMax* TopleftMotor;
+  rev::CANSparkMax* TopLeftMotor;
   rev::CANSparkMax* TopRightMotor;
 
   rev::CANSparkMax* MiddleLeft;
@@ -66,6 +65,13 @@ private:
   
   rev::CANSparkMax* BottomLeftMotor; 
   rev::CANSparkMax* BottomRightMotor;
+
+  rev::CANEncoder* TopLeftMotorEncoder    ;
+  rev::CANEncoder* TopRightMotorEncoder   ;
+  rev::CANEncoder* MiddleLeftMotorEncoder ;
+  rev::CANEncoder* MiddleRightMotorEncoder;
+  rev::CANEncoder* BottomLeftMotorEncoder ;
+  rev::CANEncoder* BottomRightMotorEncoder;
 
   AHRS* ahrs;
   };  

@@ -36,7 +36,7 @@ DriveTrain::DriveTrain(
         this->Driver = &Driver;
         this->ahrs = &ahrs;
 
-        this->TopleftMotor = &TopLeftMotor;
+        this->TopLeftMotor = &TopLeftMotor;
         this->TopRightMotor = &TopRightMotor;
 
         this->MiddleLeft = &MiddleLeft;
@@ -44,6 +44,15 @@ DriveTrain::DriveTrain(
 
         this->BottomLeftMotor = &BottomLeftMotor;
         this->BottomRightMotor = &BottomRightMotor;
+
+        this->TopLeftMotorEncoder = new rev::CANEncoder{TopLeftMotor};
+        this->TopRightMotorEncoder = new rev::CANEncoder{TopRightMotor};
+
+        this->MiddleLeftMotorEncoder = new rev::CANEncoder{MiddleLeft};
+        this->MiddleRightMotorEncoder = new rev::CANEncoder{MiddleRight};
+        
+        this->BottomLeftMotorEncoder = new rev::CANEncoder{BottomLeftMotor};
+        this->BottomRightMotorEncoder = new rev::CANEncoder{BottomRightMotor};
 
         //this->LeftMotors->SetInverted(true);
 
@@ -68,7 +77,7 @@ void DriveTrain::Drive()
 }
 
 void DriveTrain::LowerAmps(){
-    TopleftMotor->SetSmartCurrentLimit(40);
+    TopLeftMotor->SetSmartCurrentLimit(40);
     TopRightMotor->SetSmartCurrentLimit(40);
     BottomLeftMotor->SetSmartCurrentLimit(40);
     BottomRightMotor->SetSmartCurrentLimit(40);

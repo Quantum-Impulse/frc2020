@@ -27,8 +27,6 @@ class Hopper{
     void RunIntakePistions();
     void ManualIntakeMotors();
 
-    
-    private:
     bool readyToLoad = false ;
     FRC5572Controller* Operator;
     rev::CANSparkMax* belt;

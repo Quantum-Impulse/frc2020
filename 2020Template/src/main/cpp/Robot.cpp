@@ -12,8 +12,13 @@
 
 #include "cameraserver/CameraServer.h"
 
+#include <frc/Timer.h>
+
 void Robot::RobotInit(){
 
+    m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
+    m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
+    frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 }
 
 void Robot::RobotPeriodic(){ 
@@ -30,10 +35,16 @@ void Robot::RobotPeriodic(){
 
 void Robot::AutonomousInit()     {
 
+
 }
 
 void Robot::AutonomousPeriodic() {
 
+    double time = Timer::getFPGATimestamp();
+    cout << time - startTime << endl;
+    if (time - startTime < 3) {
+        
+    }
 }
 
 void Robot::TeleopInit()         {
