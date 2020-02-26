@@ -18,7 +18,7 @@ class Hopper{
         frc::DoubleSolenoid &IntakePistions,
         frc::DigitalInput &Input1,
         frc::DigitalInput &Input2,
-        frc::DigitalInput &Photo
+        frc::DigitalInput &Input3
     );
 
     void HopperPeriodic();
@@ -34,7 +34,7 @@ class Hopper{
     frc::DoubleSolenoid* intakePistions;
     frc::DigitalInput* limitSwitch1;
     frc::DigitalInput* limitSwitch2;
-    frc::DigitalInput* Photo;
+    frc::DigitalInput* Input3;
 
 };
 

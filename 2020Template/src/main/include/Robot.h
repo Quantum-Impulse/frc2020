@@ -92,11 +92,12 @@ class Robot : public frc::TimedRobot
   frc::DoubleSolenoid intake{PCM1 ,3 ,4};  //1 6
 
   // Sensor
-  frc::DigitalInput limitSwitch1{3};
-  frc::DigitalInput limitSwitch2{2};
+  frc::DigitalInput limitSwitch1{3}; // on the bottom of the mag
+  frc::DigitalInput limitSwitch2{2}; // in the mag
+  frc::DigitalInput limitSwitch3{0}; // on the top of the mag
 
-  frc::DigitalInput photoIN{0};
-  frc::DigitalOutput photoOUT{1};
+  //frc::DigitalInput photoIN{0};
+  //frc::DigitalOutput photoOUT{1};
 
   /*SubSystem Objects  */
   DriveTrain driveTrain{ m_leftTopMotor, m_rightTopMotor, m_leftMiddleMotor, m_rightMiddleMotor, m_leftBottomMotor, m_rightBottomMotor, Driver, LimeLight, ahrs};
@@ -105,9 +106,9 @@ class Robot : public frc::TimedRobot
   
   ClimbManager climber{test1, test2, Driver, climb};
 
-  Hopper hopper{m_hopper, m_intake, Operator, intake, limitSwitch1, limitSwitch2, photoIN};  
+  Hopper hopper{m_hopper, m_intake, Operator, intake, limitSwitch1, limitSwitch2, limitSwitch3};  
   
-  Photoelctric photoSensor{photoIN, photoOUT};
+  //Photoelctric photoSensor{photoIN, photoOUT};
 
   /* IDS */
   static const int

@@ -9,7 +9,7 @@ Hopper::Hopper(
    frc::DoubleSolenoid &IntakePistions,
    frc::DigitalInput &Input1,
    frc::DigitalInput &Input2,
-   frc::DigitalInput &Photo
+   frc::DigitalInput &Input3
 ){
     this->belt = &Belt;
     this->intake = &Intake;
@@ -17,7 +17,7 @@ Hopper::Hopper(
     this->intakePistions = &IntakePistions;
     this->limitSwitch1 = &Input1;
     this->limitSwitch2 = &Input2;
-    this->Photo = &Photo;
+    this->Input3 = &Input3;
 }
 
 void Hopper::HopperPeriodic(){
@@ -28,9 +28,9 @@ void Hopper::HopperPeriodic(){
 }
 
 void Hopper::Advance(){
-   if( !(Photo->Get()) ){
+   if( !( Input3->Get() ) ){
       if(Operator->X() && !(limitSwitch2->Get()) ){
-         belt->Set(.3);
+         belt->Set(.5);
          }
       else {
          belt->Set(0.0);

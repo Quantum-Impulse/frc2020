@@ -60,8 +60,7 @@ void Robot::TestInit()  {
 }
 
 void Robot::TestPeriodic()       {
-    photoSensor.teachSensor();
-    std::cout << "Value of photo:" << photoIN.Get() << std::endl;
+    
 }
 
 #ifndef RUNNING_FRC_TESTS
