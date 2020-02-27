@@ -54,10 +54,6 @@ DriveTrain::DriveTrain(
         this->BottomLeftMotorEncoder = new rev::CANEncoder{BottomLeftMotor};
         this->BottomRightMotorEncoder = new rev::CANEncoder{BottomRightMotor};
 
-        //this->LeftMotors->SetInverted(true);
-
-        //this->TopleftMotor->SetInverted(true);
-
         this->LimeLight = &VisionManager;
 }
 

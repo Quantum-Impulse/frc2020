@@ -1,22 +1,5 @@
 #include "Movement/Shooter.hpp"
 
-
-/* CAN ID layout for drive train from a top view
-
-          Front of Robot
-         
-         |--------------|
-         |              |
-      ?  |    M?   M?   | ?
-         |              | 
-         |              | 
-         |              |
-         |              |
-         |--------------|
-
-          Back Of Robot
-*/
-
 Shooter::Shooter(
     rev::CANSparkMax &LeftMotor,
     rev::CANSparkMax &RightMotor,
@@ -27,8 +10,6 @@ Shooter::Shooter(
     this->rightMotor = &RightMotor;
     this->Hood = &Hood;
     this->Operator = &Operator;
-    //this->leftMotor->SetInverted(true);
-    //this->rightMotor->SetInverted(true);
     shooterMotors = new frc::SpeedControllerGroup{ LeftMotor, RightMotor};
     leftMotorEncoder = new rev::CANEncoder{LeftMotor};
     rightMotorEncoder = new rev::CANEncoder{RightMotor};
@@ -53,10 +34,6 @@ void Shooter::Shot(){
     }
 }
 
-void Shooter::Calucate(){
-    
-}
-
 void Shooter::Test(){
     if(Operator->LB()){
         //Hood->Set(frc::DoubleSolenoid::Value::kForward); 
@@ -74,13 +51,21 @@ void Shooter::TestRPM(){
     
 }
 
-void Shooter::BumberShot(){
-    /*
-    if(Operator->BLaBla){
-        shooterMotors->Set(1.0);
+void Shooter::Shots(){
+    if(this->Operator->POV() == 0 ){
+        shooterMotors->Set(.65);
+        Hood->Set(frc::DoubleSolenoid::Value::kReverse);    
     }
-    */
+    else if(this->Operator->POV() == 90){
+        shooterMotors->Set(.87);
+        Hood->Set(frc::DoubleSolenoid::Value::kForward); 
+    }
+    else if(this->Operator->POV() == 270){
+        shooterMotors->Set(.92);
+        Hood->Set(frc::DoubleSolenoid::Value::kReverse); 
+    }
+    else{
+        shooterMotors->Set(0.0);
+        Hood->Set(frc::DoubleSolenoid::Value::kOff); 
+    }
 }
-/*
-void Shooter::InitShot
-*/

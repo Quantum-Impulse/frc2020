@@ -7,22 +7,6 @@
 #include "Movement/ControllerManager.hpp"
 #include <frc/SpeedControllerGroup.h>
 
-/* CAN ID layout for drive train from a top view
-
-          Front of Robot
-         
-         |--------------|
-         |              |
-      ?  |    M?   M?   | ?
-         |              | 
-         |              | 
-         |              |
-         |              |
-         |--------------|
-
-          Back Of Robot
-*/
-
 class Shooter{
     public:
 
@@ -38,8 +22,12 @@ class Shooter{
     void TestRPM();
     void Test();
 
-    void BumberShot();
-    
+    void Shots();
+
+    // void BumberShot();
+    // void InitShot();
+    // void TrenchShot();
+
     bool Tracked = true, hood = false;
     double Power = 0, Distance = 0; double rpm;
 

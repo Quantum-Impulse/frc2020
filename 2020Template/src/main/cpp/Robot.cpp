@@ -30,7 +30,9 @@ void Robot::RobotPeriodic(){
 
     shooter.TestRPM();
 
-    shooter.Test();
+    shooter.Shots();
+
+    //shooter.Test();
     
     climber.ClimbPeriodic();
 
