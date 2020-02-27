@@ -10,6 +10,7 @@
 #include "Movement/Hopper.hpp"
 #include "Movement/ClimbManager.hpp"
 #include "vision/PhotoeletricSensor.hpp"
+#include "Auto/AutoDrip.hpp"
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
@@ -17,6 +18,8 @@
 #include <frc/DoubleSolenoid.h>
 #include <frc/util/color.h>
 #include <frc/DigitalInput.h>
+#include <frc/Timer.h>
+#include <frc/livewindow/LiveWindow.h>
 
 #include "AHRS.h"
 #include "rev/CANSparkMax.h"
@@ -27,7 +30,6 @@
 class Robot : public frc::TimedRobot
 {
  private:
- VisionManager LimeLight;
  
  // Controllers
   FRC5572Controller Driver{0}; 
@@ -46,13 +48,13 @@ class Robot : public frc::TimedRobot
   rev::CANSparkMax m_leftMiddleMotor{MiddleLeft, 
     rev::CANSparkMax::MotorType::kBrushless};
 
-  rev::CANSparkMax m_rightMiddleMotor{RightMid, 
+  rev::CANSparkMax m_rightMiddleMotor{MiddleRight, 
     rev::CANSparkMax::MotorType::kBrushless};
 
-  rev::CANSparkMax m_leftBottomMotor{LeftMid, 
+  rev::CANSparkMax m_leftBottomMotor{LeftBot, 
     rev::CANSparkMax::MotorType::kBrushless};
 
-  rev::CANSparkMax m_rightBottomMotor{RightMid, 
+  rev::CANSparkMax m_rightBottomMotor{RightBot, 
     rev::CANSparkMax::MotorType::kBrushless};
  
  /* Shooters Spark Max and Motors*/
@@ -69,14 +71,6 @@ class Robot : public frc::TimedRobot
 /* Hopper */
   rev::CANSparkMax m_hopper{HopperID, 
     rev::CANSparkMax::MotorType::kBrushless};
-
-/* Climber */
-  // rev::CANSparkMax m_LeftClimb{LeftClimb, 
-  //   rev::CANSparkMax::MotorType::kBrushed};
-
-  // rev::CANSparkMax m_RightClimb{RightClimb, 
-  //   rev::CANSparkMax::MotorType::kBrushed};
-
   
   frc::VictorSP test1 {0}; // left climb motor
 
@@ -105,7 +99,11 @@ class Robot : public frc::TimedRobot
   
   ClimbManager climber{test1, test2, Driver, climb};
 
-  Hopper hopper{m_hopper, m_intake, Operator, intake, limitSwitch2, limitSwitch3};  
+  Hopper hopper{m_hopper, m_intake, Operator, intake, limitSwitch2, limitSwitch3};
+ 
+  VisionManager LimeLight;   
+
+  AutoDrip autoDrip{hopper, driveTrain, shooter, LimeLight};
   
   //Photoelctric photoSensor{photoIN, photoOUT};
 
@@ -117,8 +115,8 @@ class Robot : public frc::TimedRobot
   MiddleLeft = 3, // GOOD
   MiddleRight = 4, // GOOD
 
-  LeftMid = 5, // GOOD
-  RightMid = 6, // GOOD
+  LeftBot = 5, // GOOD
+  RightBot = 6, // GOOD
 
   LeftShoot = 7, // GOOD
   RightShoot = 8, // GOOD
@@ -134,9 +132,9 @@ class Robot : public frc::TimedRobot
 
   double actualRPM;
 
+
  public:
   void RobotInit() override;
-
   void RobotPeriodic() override;
   void AutonomousInit() override;
   void AutonomousPeriodic() override;

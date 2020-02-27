@@ -28,7 +28,7 @@ void Robot::RobotPeriodic(){
 
     //shooter.Shot();
 
-    shooter.TestRPM();
+    //shooter.TestRPM();
 
     shooter.Shots();
 
@@ -48,17 +48,11 @@ void Robot::RobotPeriodic(){
 }
 
 void Robot::AutonomousInit()     {
-
-
+    autoDrip.ResetTimer();
 }
 
-void Robot::AutonomousPeriodic() {
-
-    // double time = Timer::getFPGATimestamp();
-    // cout << time - startTime << endl;
-    // if (time - startTime < 3) {
-        
-    // }
+void Robot::AutonomousPeriodic() { 
+    autoDrip.BumperShot();
 }
 
 void Robot::TeleopInit()         {

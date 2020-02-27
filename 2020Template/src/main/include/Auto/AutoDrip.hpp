@@ -5,24 +5,29 @@
 #include "Movement/Hopper.hpp"
 #include "Movement/Shooter.hpp"
 #include "Vision/VisionManager.hpp"
+#include <frc/Timer.h>
 
 class AutoDrip{
     public:
     
     AutoDrip(
-        Hopper hopper,
-        DriveTrain driveTrain,
-        Shooter shooter,
-        VisionManager visionManager
+        Hopper& hopper,
+        DriveTrain& driveTrain,
+        Shooter& shooter,
+        VisionManager& visionManager
     );
+
+    void ResetTimer();
     void BumperShot();
     void InitiationShot();
+    void AngledInitiationShot();
 
     Hopper* hopper;
     DriveTrain* driveTrain;
     Shooter* shooter;
     VisionManager* visionManager;
     double startTime; 
+    frc::Timer m_timer;
 };
 #endif
 

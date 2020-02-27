@@ -62,10 +62,10 @@ void Shooter::Shots(){
     }
     else if(this->Operator->POV() == 270){
         shooterMotors->Set(.92);
-        Hood->Set(frc::DoubleSolenoid::Value::kReverse); 
+        Hood->Set(frc::DoubleSolenoid::Value::kForward); 
     }
     else{
         shooterMotors->Set(0.0);
-        Hood->Set(frc::DoubleSolenoid::Value::kOff); 
+        Hood->Set(frc::DoubleSolenoid::Value::kReverse); 
     }
 }

@@ -72,6 +72,7 @@ void DriveTrain::Drive()
     //DriveTrain::Aim();
     LeftMotors->Set(-1 * Driver->L().second * .8  );
     RightMotors->Set(Driver->R().second  * .8);
+    //this->MiddleRight->Set(Driver->R().second  * .8);
 }
 
 void DriveTrain::LowerAmps(){
