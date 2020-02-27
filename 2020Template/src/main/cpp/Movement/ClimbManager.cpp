@@ -35,21 +35,14 @@ void ClimbManager::UpAndDown(){
     
 }
 
-void ClimbManager::Down(){
-    
-}
 
 void ClimbManager::Spin(){
 
     if(driver->RB()){
-        //this->leftClimb->Set(-0.3);
-        //this->climbMotors->Set(-0.3);
         leftClimb->Set(.4);
         rightClimb->Set(.4);
     }
     else if(driver->LB()){
-        //this->leftClimb->Set(0);
-        //this->climbMotors->Set(0.0); / problem 
         leftClimb->Set(-0.4);
         rightClimb->Set(-0.4);
     }

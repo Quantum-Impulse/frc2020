@@ -36,14 +36,12 @@ class Shooter{
     void Shot();
     void Calucate();
     void TestRPM();
+    void Test();
 
     void BumberShot();
     
     bool Tracked = true, hood = false;
-    double Power = 0, Distance = 0;
-
-
-    
+    double Power = 0, Distance = 0; double rpm;
 
     /* Notes of power percentage and RPMs to make shot at certain distances*/
     // Bumber shot = %- RPM - 

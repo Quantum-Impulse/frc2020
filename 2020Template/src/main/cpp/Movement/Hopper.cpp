@@ -1,4 +1,5 @@
 #include "Movement/Hopper.hpp"
+
 // AKA magazine and the intake
 //d pad toggle preset shots 
 
@@ -7,7 +8,6 @@ Hopper::Hopper(
    rev::CANSparkMaxLowLevel &Intake,
    FRC5572Controller &Operator,
    frc::DoubleSolenoid &IntakePistions,
-   frc::DigitalInput &Input1,
    frc::DigitalInput &Input2,
    frc::DigitalInput &Input3
 ){
@@ -15,53 +15,39 @@ Hopper::Hopper(
     this->intake = &Intake;
     this->Operator = &Operator;
     this->intakePistions = &IntakePistions;
-    this->limitSwitch1 = &Input1;
     this->limitSwitch2 = &Input2;
-    this->Input3 = &Input3;
+    this->limitSwitch3 = &Input3;
 }
 
 void Hopper::HopperPeriodic(){
-   Hopper::ManualControl();
+   Hopper::ManualControlBelt();
    Hopper::RunIntakePistions();
    Hopper::Advance();
    Hopper::ManualIntakeMotors();
 }
 
+//limit switch is naturally true until ball hits the swtich then it is false.
 void Hopper::Advance(){
-   if( !( Input3->Get() ) ){
-      if(Operator->X() && !(limitSwitch2->Get()) ){
-         belt->Set(.5);
-         }
-      else {
-         belt->Set(0.0);
-         }
-   }
-   /*
-   if =(Operator->A()){
-      if(!(Photo->Get())&&((limitSwitch1->Get())||(limitSwitch2->Get())){
-         belt->Set(0.3);
+   if( !(this->Operator->R().second > 0.2 || this->Operator->R().second < -0.2) ){
+      
+      if( !( limitSwitch3->Get() ) ){ 
+         if(Operator->X() && !(limitSwitch2->Get()) ){
+            belt->Set(.3);
+            }
       }
-      if((Photo->Get())){
-         belt->Set(0.0);
+      if(limitSwitch3->Get()){
+         this->belt->Set(0.0);
       }
-   }
-
-   */
-
-   if(limitSwitch1->Get()){
-      readyToLoad = true;
-   }
-   else {
-      readyToLoad = false;
-   }
+ }
+         
 }
 
-void Hopper::ManualControl(){
+void Hopper::ManualControlBelt(){
    if(this->Operator->R().second > 0.2){
-      this->belt->Set(-0.5);
+      this->belt->Set(-0.25);
    }
    if(this->Operator->R().second < -0.2){
-      this->belt->Set(0.5);
+      this->belt->Set(0.25);
    }
    if(this->Operator->R().second < 0.2 && this->Operator->R().second > -0.2) {
       this->belt->Set(0.0);
@@ -70,12 +56,10 @@ void Hopper::ManualControl(){
 }
 
 void Hopper::RunIntakePistions(){
-   if(Operator->Y()){
-      //intake->Set(.7);
-      intakePistions->Set(frc::DoubleSolenoid::Value::kForward); // do toggle
+   if(Operator->RT() > 0){
+      intakePistions->Set(frc::DoubleSolenoid::Value::kForward);
    }
    else{
-      //intake->Set(0.0);
       intakePistions->Set(frc::DoubleSolenoid::Value::kReverse);
    }
 }

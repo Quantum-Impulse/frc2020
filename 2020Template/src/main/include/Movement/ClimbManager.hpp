@@ -18,7 +18,6 @@ class ClimbManager {
 
   void ClimbPeriodic();
   void UpAndDown();
-  void Down();
   void Spin();
   private:
   frc::SpeedControllerGroup* climbMotors;

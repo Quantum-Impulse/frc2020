@@ -30,8 +30,8 @@ Shooter::Shooter(
     //this->leftMotor->SetInverted(true);
     //this->rightMotor->SetInverted(true);
     shooterMotors = new frc::SpeedControllerGroup{ LeftMotor, RightMotor};
-    this->leftMotorEncoder = new rev::CANEncoder{LeftMotor};
-    this->rightMotorEncoder = new rev::CANEncoder{RightMotor};
+    leftMotorEncoder = new rev::CANEncoder{LeftMotor};
+    rightMotorEncoder = new rev::CANEncoder{RightMotor};
 
 }
 
@@ -57,8 +57,21 @@ void Shooter::Calucate(){
     
 }
 
+void Shooter::Test(){
+    if(Operator->LB()){
+        //Hood->Set(frc::DoubleSolenoid::Value::kForward); 
+        shooterMotors->Set(.65); 
+    }
+    else{
+        shooterMotors->Set(0);
+        //Hood->Set(frc::DoubleSolenoid::Value::kReverse); 
+    }
+}
+
 void Shooter::TestRPM(){
-    leftMotorEncoder->SetPosition(0);
+    rpm = leftMotorEncoder->GetVelocity();
+    std::cout << "RPM is: " << leftMotorEncoder->GetVelocity() << std::endl;
+    
 }
 
 void Shooter::BumberShot(){

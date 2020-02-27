@@ -18,7 +18,7 @@ void Robot::RobotInit(){
 
     // m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
     // m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-    // frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+    //frc::SmartDashboard::PutData( "a", actualRPM );
 }
 
 void Robot::RobotPeriodic(){ 
@@ -26,11 +26,23 @@ void Robot::RobotPeriodic(){
 
     driveTrain.Drive();
 
-    shooter.Shot();
+    //shooter.Shot();
+
+    shooter.TestRPM();
+
+    shooter.Test();
     
     climber.ClimbPeriodic();
 
     hopper.HopperPeriodic();
+
+    // std::cout << "Velocity X: " << ahrs.GetVelocityX << std::endl;
+    // std::cout << "Velocity Y: " << ahrs.GetVelocityY << std::endl;
+    // std::cout << "Velocity Z: " << ahrs.GetVelocityZ << std::endl;
+    // std::cout << "Acceleration X" << ahrs.GetWorldLinearAccelX() << std::endl;
+    // std::cout << "Acceleration Y" << ahrs.GetWorldLinearAccelY() << std::endl;
+    // std::cout << "Acceleration Z" << ahrs.GetWorldLinearAccelZ() << std::endl;
+
 }
 
 void Robot::AutonomousInit()     {

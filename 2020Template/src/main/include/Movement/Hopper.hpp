@@ -16,14 +16,13 @@ class Hopper{
         rev::CANSparkMaxLowLevel &Intake,
         FRC5572Controller &Operator,
         frc::DoubleSolenoid &IntakePistions,
-        frc::DigitalInput &Input1,
         frc::DigitalInput &Input2,
         frc::DigitalInput &Input3
     );
 
     void HopperPeriodic();
     void Advance();
-    void ManualControl();
+    void ManualControlBelt();
     void RunIntakePistions();
     void ManualIntakeMotors();
 
@@ -32,9 +31,8 @@ class Hopper{
     rev::CANSparkMax* belt;
     rev::CANSparkMaxLowLevel* intake;
     frc::DoubleSolenoid* intakePistions;
-    frc::DigitalInput* limitSwitch1;
     frc::DigitalInput* limitSwitch2;
-    frc::DigitalInput* Input3;
+    frc::DigitalInput* limitSwitch3;
 
 };
 
