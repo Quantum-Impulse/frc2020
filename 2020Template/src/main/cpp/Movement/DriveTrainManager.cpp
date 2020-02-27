@@ -55,6 +55,8 @@ DriveTrain::DriveTrain(
         this->BottomRightMotorEncoder = new rev::CANEncoder{BottomRightMotor};
 
         this->LimeLight = &VisionManager;
+
+        DriveTrain::LowerAmps();
 }
 
 DriveTrain::~DriveTrain()
@@ -73,10 +75,14 @@ void DriveTrain::Drive()
 }
 
 void DriveTrain::LowerAmps(){
-    TopLeftMotor->SetSmartCurrentLimit(40);
-    TopRightMotor->SetSmartCurrentLimit(40);
-    BottomLeftMotor->SetSmartCurrentLimit(40);
-    BottomRightMotor->SetSmartCurrentLimit(40);
+    TopLeftMotor->SetSmartCurrentLimit(60);
+    TopRightMotor->SetSmartCurrentLimit(60);
+
+    MiddleLeft->SetSmartCurrentLimit(60);
+    MiddleRight->SetSmartCurrentLimit(60);
+
+    BottomLeftMotor->SetSmartCurrentLimit(60);
+    BottomRightMotor->SetSmartCurrentLimit(60);
 }
 
 void DriveTrain::Aim(){
