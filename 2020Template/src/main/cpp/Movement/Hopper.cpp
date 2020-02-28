@@ -31,8 +31,8 @@ void Hopper::Advance(){
    if( !(this->Operator->R().second > 0.2 || this->Operator->R().second < -0.2) ){
       
       if( !( limitSwitch3->Get() ) ){ 
-         if(Operator->X() && !(limitSwitch2->Get()) ){
-            belt->Set(.3);
+         if(Operator->X() ){
+            belt->Set(.2);
             }
       }
       if(limitSwitch3->Get()){

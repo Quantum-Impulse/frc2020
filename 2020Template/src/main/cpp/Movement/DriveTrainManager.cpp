@@ -32,6 +32,9 @@ DriveTrain::DriveTrain(
     ){
         this->LeftMotors = new frc::SpeedControllerGroup( TopLeftMotor, MiddleLeft, BottomLeftMotor);
         this->RightMotors = new frc::SpeedControllerGroup( TopRightMotor, MiddleRight, BottomRightMotor);
+        this->TempRightMotors = new frc::SpeedControllerGroup( MiddleRight, BottomRightMotor);
+        this->TempLeftMotors = new frc::SpeedControllerGroup( MiddleLeft, BottomLeftMotor);
+
         
         this->Driver = &Driver;
         this->ahrs = &ahrs;

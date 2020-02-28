@@ -10,7 +10,8 @@
 #include "Movement/Hopper.hpp"
 #include "Movement/ClimbManager.hpp"
 #include "vision/PhotoeletricSensor.hpp"
-#include "Auto/AutoDrip.hpp"
+// #include "Auto/AutoDrip.hpp"
+#include "Auto/Auto.h"
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
@@ -30,6 +31,8 @@
 class Robot : public frc::TimedRobot
 {
  private:
+
+ AutoMovement *automovement;
  
  // Controllers
   FRC5572Controller Driver{0}; 
@@ -103,7 +106,9 @@ class Robot : public frc::TimedRobot
  
   VisionManager LimeLight;   
 
-  AutoDrip autoDrip{hopper, driveTrain, shooter, LimeLight};
+  frc::Timer m_timer;
+
+  // AutoDrip autoDrip{hopper, driveTrain, shooter, LimeLight};
   
   //Photoelctric photoSensor{photoIN, photoOUT};
 

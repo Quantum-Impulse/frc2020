@@ -15,6 +15,7 @@
 #include <frc/Timer.h>
 
 void Robot::RobotInit(){
+    m_timer.Start();
 
     // m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
     // m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
@@ -48,15 +49,34 @@ void Robot::RobotPeriodic(){
 }
 
 void Robot::AutonomousInit()     {
-    autoDrip.ResetTimer();
+    m_timer.Reset();
+    m_timer.Start();
+    //ahrs.ZeroYaw();
+    //this->automovement = new AutoMovement{*driveTrain.TempLeftMotors, *driveTrain.TempRightMotors, ahrs, *driveTrain.BottomLeftMotorEncoder, *driveTrain.BottomRightMotorEncoder};
+    // autoDrip.ResetTimer();
 }
 
 void Robot::AutonomousPeriodic() { 
-    autoDrip.BumperShot();
+        while(m_timer.Get() < 4){
+        shooterHood.Set(frc::DoubleSolenoid::Value::kForward);
+        m_leftShooter.Set(.87);
+        m_rightShooter.Set(.87);
+        m_hopper.Set(.3);
+        continue;
+        }
+        while(m_timer.Get() > 4 && m_timer.Get() < 5){
+            m_rightBottomMotor.Set(.3);
+            m_rightMiddleMotor.Set(.3);
+
+            m_leftBottomMotor.Set(-.3);
+            m_leftMiddleMotor.Set(-.3);
+            continue;
+        }
+
 }
 
 void Robot::TeleopInit()         {
-
+    shooterHood.Set(frc::DoubleSolenoid::Value::kReverse);
 }
 
 void Robot::TeleopPeriodic()     {

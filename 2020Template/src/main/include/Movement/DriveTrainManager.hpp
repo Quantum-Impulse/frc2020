@@ -54,6 +54,8 @@ void Aim();
 
   frc::SpeedControllerGroup* LeftMotors;
   frc::SpeedControllerGroup* RightMotors;
+  frc::SpeedControllerGroup* TempRightMotors;
+  frc::SpeedControllerGroup* TempLeftMotors;
   
   FRC5572Controller* Driver;
 
