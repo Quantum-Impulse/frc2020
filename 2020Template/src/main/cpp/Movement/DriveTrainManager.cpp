@@ -72,10 +72,19 @@ DriveTrain::~DriveTrain()
 
 void DriveTrain::Drive()
 {
-    //DriveTrain::Aim();
-    LeftMotors->Set(-1 * Driver->L().second * .8  );
-    RightMotors->Set(Driver->R().second  * .8);
-    //this->MiddleRight->Set(Driver->R().second  * .8);
+    if(this->Driver->L().second > .2 || this->Driver->L().second < -.2){
+        LeftMotors->Set(-1 * Driver->L().second * .8  );
+    }
+    else{
+        LeftMotors->Set(0 + L);
+    }
+
+    if(this->Driver->R().second > .2 ||  this->Driver->R().second < -.2){
+        RightMotors->Set(Driver->R().second  * .8);
+    }
+    else{
+        RightMotors->Set(0 + R);
+    }
 }
 
 void DriveTrain::LowerAmps(){
@@ -90,25 +99,46 @@ void DriveTrain::LowerAmps(){
 }
 
 void DriveTrain::Aim(){
-    std::cout << "asd" << std::endl; 
-    disX = LimeLight->disX; 
-    std::cout << "disX is: " << disX << std::endl; 
-    if (Driver->A())
+    if (Driver->Y() ==  true)
     {
-    if (fabs(disX) > 0)
-    {
-        if (fabs(disX) > 10)
+        disX = LimeLight->disX; 
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("camMode", 0);
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 3);
+    }
+    else if (Driver->Y() == false){
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("camMode", 1);
+        nt::NetworkTableInstance::GetDefault().GetTable("limelight")->PutNumber("ledMode", 1);
+        disX = 0;
+        L = 0; R = 0;
+    }
+        
+    if (fabs(disX) > 1 && Driver->X() == true)
         {
-            copysign(1, disX) == 1 ? RightMotors->Set(.3) : LeftMotors->Set(.3);
+            if (disX > 10)
+            {
+                R = -.3;  
+                L = -.3;
+            }
+            if (disX < 10)
+            {
+                R = -disX/35; 
+                L = -disX/35;
+            } 
+            if (disX < -10)
+            {
+                R = .3;
+                L = .3;
+            }
+            if (disX > -10)
+            {
+                R = disX/35; 
+                L = disX/35;
+            }
         }
-        if (fabs(disX) < 10)
-        {
-            copysign(1, disX) == 1 ? RightMotors->Set(disX/30) : LeftMotors->Set(disX/30);
+    else{
+        L = 0;
+        R = 0;
         }
-    }
-    else if (Driver->A() == false)
-    {
-        RightMotors->Set(0); LeftMotors->Set(0);
-    }
-    }
+    
+
 }

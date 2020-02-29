@@ -48,7 +48,6 @@ void Shooter::Test(){
 void Shooter::TestRPM(){
     rpm = leftMotorEncoder->GetVelocity();
     std::cout << "RPM is: " << leftMotorEncoder->GetVelocity() << std::endl;
-    
 }
 
 void Shooter::Shots(){

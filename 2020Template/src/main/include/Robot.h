@@ -133,7 +133,7 @@ class Robot : public frc::TimedRobot
   HopperID = 11, //GOOD
   
   LeftClimb = 13, //GOOD
-  RightClimb = 14; //GOOD
+  RightClimb = 14; //GOOD    
 
   double actualRPM;
 
@@ -148,10 +148,6 @@ class Robot : public frc::TimedRobot
   void TestInit() override;
   void TestPeriodic() override;
 };
-
-
-
-
 
 // ¶¶¶¶¶¶¶¶¶¶´¶¶¶¶¶¶¶
 // ¶¶¶¶¶¶¶¶__________¶¶ 

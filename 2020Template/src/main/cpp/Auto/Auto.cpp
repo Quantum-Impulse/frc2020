@@ -25,7 +25,7 @@ TrajectoryCandidate candidate;
 // Max Velocity:        15 m/s
 // Max Acceleration:    10 m/s/s
 // Max Jerk:            60 m/s/s/s
-pathfinder_prepare(points, POINT_LENGTH, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_FAST, 0.05, 1.5, 9.0, 20.0, &candidate);
+pathfinder_prepare(points, POINT_LENGTH, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_FAST, 0.05, 2.0, 9.0, 10.0, &candidate);
 
 length = candidate.length;
 
@@ -58,36 +58,38 @@ this->rightencoder = &anyrightencoder;
 AutoMovement::gyro->ZeroYaw();
 leftencoder->SetPositionConversionFactor(42);
 rightencoder->SetPositionConversionFactor(42);
-max_velocity = 1.5;
+max_velocity = 2.0;
 wheel_circumference = .47877887204060999;
 }
 
 void AutoMovement::TestDrive()
 {
-    // while (true)
-    // {
-    // EncoderConfig leftconfig = { leftencoder->GetPosition(), 42, wheel_circumference, 1.0, 0.0, 0.2, 1.0 / max_velocity, 0.0};  
-    // EncoderConfig rightconfig = { rightencoder->GetPosition(), 42, wheel_circumference, 1.0, 0.0, 0.2, 1.0 / max_velocity, 0.0};  
+    frc::Timer timer;
+    timer.Reset();
+    timer.Start();
+    while (timer.Get() > 4)
+    {
+    EncoderConfig leftconfig = { leftencoder->GetPosition(), 42, wheel_circumference, 1.0, 0.0, 0.0, 1.0 / max_velocity, 0.0};  
+    EncoderConfig rightconfig = { rightencoder->GetPosition(), 42, wheel_circumference, 1.0, 0.0, 0.0, 1.0 / max_velocity, 0.0};  
 
-    // l = pathfinder_follow_encoder(leftconfig, leftfollower, &leftTrajectory, length, leftencoder->GetPosition());
-    // r = pathfinder_follow_encoder(rightconfig, rightfollower, &rightTrajectory, length, rightencoder->GetPosition());
+    l = pathfinder_follow_encoder(leftconfig, leftfollower, &leftTrajectory, length, leftencoder->GetPosition());
+    r = pathfinder_follow_encoder(rightconfig, rightfollower, &rightTrajectory, length, rightencoder->GetPosition());
 
-    // angle = gyro->GetAngle();
-    // double desired_heading = leftfollower->heading;
-    // double differeince_angle = desired_heading - angle;
+    angle = gyro->GetAngle();
+    double desired_heading = leftfollower->heading;
+    double differeince_angle = desired_heading - angle;
 
-    // differeince_angle = std::fmod(differeince_angle, 360.0);
-    // if (std::abs(differeince_angle) > 180.0) 
-    // {
-    //     differeince_angle = (differeince_angle > 0) ? differeince_angle - 360 : differeince_angle + 360;
-    // } 
+    differeince_angle = std::fmod(differeince_angle, 360.0);
+    if (std::abs(differeince_angle) > 180.0) 
+    {
+        differeince_angle = (differeince_angle > 0) ? differeince_angle - 360 : differeince_angle + 360;
+    } 
 
-    // double turn = 0.8 * (-1.0/80.0) * differeince_angle;
-    // std::cout << "l is: " << l << std::endl;
-    // std::cout << "r is: " << r << std::endl;
-    // leftMotors->Set(l + turn);
-    // rightMotors->Set(r - turn);
-    // }
-    leftMotors->Set(.2);
-    rightMotors->Set(.2);
+    double turn = 0.8 * (-1.0/80.0) * differeince_angle;
+    std::cout << "l is: " << l << std::endl;
+    std::cout << "r is: " << r << std::endl;
+    leftMotors->Set(l + turn);
+    rightMotors->Set(r - turn);
+    continue;
+    }
 }
