@@ -17,6 +17,7 @@ Shooter::Shooter(
 }
 
 void Shooter::Shot(){
+
     if(Operator->B()){
         Hood->Set(frc::DoubleSolenoid::Value::kForward); //do toggle
     }
@@ -51,6 +52,7 @@ void Shooter::TestRPM(){
 }
 
 void Shooter::Shots(){
+
     if(this->Operator->POV() == 0 ){
         shooterMotors->Set(.65);
         Hood->Set(frc::DoubleSolenoid::Value::kReverse);    
@@ -67,4 +69,6 @@ void Shooter::Shots(){
         shooterMotors->Set(0.0);
         Hood->Set(frc::DoubleSolenoid::Value::kReverse); 
     }
+    rpm = ((leftMotorEncoder->GetVelocity()+ rightMotorEncoder->GetVelocity()) / 2);
+    frc::SmartDashboard::PutNumber("RPM", rpm);
 }

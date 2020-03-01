@@ -6,6 +6,7 @@
 #include "AHRS.h"
 #include "Movement/ControllerManager.hpp"
 #include <frc/SpeedControllerGroup.h>
+#include <frc/SmartDashboard/SmartDashboard.h>
 
 class Shooter{
     public:

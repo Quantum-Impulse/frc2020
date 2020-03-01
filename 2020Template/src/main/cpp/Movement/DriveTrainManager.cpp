@@ -70,31 +70,42 @@ DriveTrain::~DriveTrain()
     delete ahrs;
 }
 
-double quadControl(double input)
-{
-    return log2(input + 1) - 1;
-}
+//#define QUAD(x) (log2(x + 1) - 1)
 
-#define QUAD(x) (log2(x + 1) - 1)
+// void DriveTrain::Drive()
+// {
+//     if(this->Driver->L().second > .2 || this->Driver->L().second < -.2){
+        
+//         LeftMotors->Set(-1 * QUAD(Driver->L().second) * .8  );
+//     }
+//     else{
+//         LeftMotors->Set(0 + L);
+//     }
+
+//     if(this->Driver->R().second > .2 ||  this->Driver->R().second < -.2){
+//         RightMotors->Set(QUAD(Driver->R().second)  * .8);
+//     }
+//     else{
+//         RightMotors->Set(0 + R);
+//     }
+// }
 
 void DriveTrain::Drive()
 {
     if(this->Driver->L().second > .2 || this->Driver->L().second < -.2){
-        
-        LeftMotors->Set(-1 * QUAD(Driver->L().second) * .8  );
+        LeftMotors->Set(-1 * Driver->L().second * .7  );
     }
     else{
         LeftMotors->Set(0 + L);
     }
 
     if(this->Driver->R().second > .2 ||  this->Driver->R().second < -.2){
-        RightMotors->Set(QUAD(Driver->R().second)  * .8);
+        RightMotors->Set(Driver->R().second  * .7);
     }
     else{
         RightMotors->Set(0 + R);
     }
 }
-
 
 void DriveTrain::LowerAmps(){
     TopLeftMotor->SetSmartCurrentLimit(60);
