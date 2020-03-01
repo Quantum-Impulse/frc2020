@@ -73,14 +73,14 @@ DriveTrain::~DriveTrain()
 void DriveTrain::Drive()
 {
     if(this->Driver->L().second > .2 || this->Driver->L().second < -.2){
-        LeftMotors->Set(-1 * Driver->L().second * .8  );
+        LeftMotors->Set(-1 * Driver->L().second * .7  );
     }
     else{
         LeftMotors->Set(0 + L);
     }
 
     if(this->Driver->R().second > .2 ||  this->Driver->R().second < -.2){
-        RightMotors->Set(Driver->R().second  * .8);
+        RightMotors->Set(Driver->R().second  * .7);
     }
     else{
         RightMotors->Set(0 + R);
