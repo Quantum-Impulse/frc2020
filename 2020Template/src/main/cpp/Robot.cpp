@@ -21,7 +21,7 @@ void Robot::RobotInit(){
 void Robot::RobotPeriodic(){ 
     LimeLight.Update();
 
-    driveTrain.Aim();
+    //driveTrain.Aim();
 
     driveTrain.Drive();
 
@@ -38,14 +38,27 @@ void Robot::AutonomousInit()     {
 }
 
 void Robot::AutonomousPeriodic() { 
-    while(m_timer.Get() < 4){
+    while(m_timer.Get() < 10){
         shooterHood.Set(frc::DoubleSolenoid::Value::kForward);
+        intake.Set(frc::DoubleSolenoid::Value::kForward);
+        m_intake.Set(.3);
         m_leftShooter.Set(.87);
         m_rightShooter.Set(.87);
         m_hopper.Set(.3);
         continue;
     }
-    while(m_timer.Get() > 4 && m_timer.Get() < 5){
+    while(m_timer.Get() > 10 && m_timer.Get() < 11){
+        intake.Set(frc::DoubleSolenoid::Value::kReverse);
+        shooterHood.Set(frc::DoubleSolenoid::Value::kReverse);
+        m_intake.Set(0);
+        m_leftShooter.Set(0);
+        m_rightShooter.Set(0);
+        continue;
+    }
+
+
+
+    while(m_timer.Get() > 11 && m_timer.Get() < 12){
         m_rightBottomMotor.Set(.3);
         m_rightMiddleMotor.Set(.3);
 
@@ -53,10 +66,37 @@ void Robot::AutonomousPeriodic() {
         m_leftMiddleMotor.Set(-.3);
         continue;
     }
+    
+
+
+
+    // while(m_timer.Get() < 1.3){
+    //     m_rightBottomMotor.Set(-.3);
+    //     m_rightMiddleMotor.Set(-.3);
+
+    //     m_leftBottomMotor.Set(.3);
+    //     m_leftMiddleMotor.Set(.3);
+    //     continue;
+    // }
+
+    // while(m_timer.Get() > 2 && m_timer.Get() < 4){
+    //     m_leftShooter.Set(.68);
+    //     m_rightShooter.Set(.68);
+    //     continue;
+    // }
+
+    // while(m_timer.Get() > 4 && m_timer.Get() < 13){
+    //     m_hopper.Set(.2);
+    //     m_leftShooter.Set(.68);
+    //     m_rightShooter.Set(.68);
+    //     continue;
+    // }
+
+    
 }
 
 void Robot::TeleopInit(){
-    shooterHood.Set(frc::DoubleSolenoid::Value::kReverse);
+    
 }
 
 void Robot::TeleopPeriodic(){

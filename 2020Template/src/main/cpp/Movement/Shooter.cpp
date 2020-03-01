@@ -60,7 +60,7 @@ void Shooter::Shots(){
         Hood->Set(frc::DoubleSolenoid::Value::kForward); 
     }
     else if(this->Operator->POV() == 270){
-        shooterMotors->Set(.92);
+        shooterMotors->Set(.92); //small adjustment from .92 to .94
         Hood->Set(frc::DoubleSolenoid::Value::kForward); 
     }
     else{

@@ -59,7 +59,7 @@ class Robot : public frc::TimedRobot
 
   rev::CANSparkMax m_rightBottomMotor{RightBot, 
     rev::CANSparkMax::MotorType::kBrushless};
- 
+
  /* Shooters Spark Max and Motors*/
   rev::CANSparkMax m_leftShooter{LeftShoot, 
     rev::CANSparkMax::MotorType::kBrushless};
