@@ -30,7 +30,7 @@ class Shooter{
     // void TrenchShot();
 
     bool Tracked = true, hood = false;
-    double Power = 0, Distance = 0; double rpm;
+    double Power = 0, Distance = 0, rpm = 0, leftRPM = 0, rightRPM = 0;
 
     /* Notes of power percentage and RPMs to make shot at certain distances*/
     // Bumber shot = %- RPM - 

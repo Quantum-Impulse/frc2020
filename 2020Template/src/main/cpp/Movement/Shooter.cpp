@@ -69,6 +69,11 @@ void Shooter::Shots(){
         shooterMotors->Set(0.0);
         Hood->Set(frc::DoubleSolenoid::Value::kReverse); 
     }
-    rpm = ((leftMotorEncoder->GetVelocity()+ rightMotorEncoder->GetVelocity()) / 2);
+    leftRPM = leftMotorEncoder->GetVelocity();
+    rightRPM = rightMotorEncoder->GetVelocity();
+    rpm = ((leftRPM + rightRPM) / 2);
+
     frc::SmartDashboard::PutNumber("RPM", rpm);
+    frc::SmartDashboard::PutNumber("Left RPM", leftRPM);
+    frc::SmartDashboard::PutNumber("Right RPM", rightRPM);
 }

@@ -38,11 +38,15 @@ void Robot::AutonomousInit()     {
 }
 
 void Robot::AutonomousPeriodic() { 
-    while(m_timer.Get() < 10){
+    while(m_timer.Get() < 2){
+        m_leftShooter.Set(.88);
+        m_rightShooter.Set(.88);
+    }
+    while(m_timer.Get() < 10 & m_timer.Get() > 2){
         shooterHood.Set(frc::DoubleSolenoid::Value::kForward);
         //intake.Set(frc::DoubleSolenoid::Value::kForward);
-        m_leftShooter.Set(.87);
-        m_rightShooter.Set(.87);
+        m_leftShooter.Set(.88);
+        m_rightShooter.Set(.88);
         m_hopper.Set(.3);
         continue;
     }
